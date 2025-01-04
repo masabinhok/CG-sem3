@@ -27,8 +27,6 @@ int main () {
     int gd = DETECT, gm;
     initgraph(&gd, &gm, "");
 
-
-    // SUDOKU BOX using DDA 
     for(int i = 40; i <= 400; i += 40){
         if(i == 40 || i == 160 || i == 280 || i == 400){
             drawLine(40, i, 400, i, WHITE);
@@ -46,9 +44,20 @@ int main () {
         else {
             drawLine(i, 40, i, 400, RED);
         }
-        
     }
 
+    drawLine(40, 40, 400, 400, WHITE);
+    drawLine(40, 400, 400, 40, WHITE);
+    drawLine(40, 160, 280, 400, WHITE);
+    drawLine(40, 280, 160, 400, WHITE);
+    drawLine(160, 400, 400, 160, WHITE); 
+    drawLine(280, 400, 400, 280, WHITE);
+
+    // Draw text "Sabin Shrestha"
+    setcolor(WHITE);
+    outtextxy(200, 420, "Sabin Shrestha");
+
+    delay(50);
     getch();
     closegraph();
     return 0;
