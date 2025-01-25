@@ -1,64 +1,51 @@
-#include <graphics.h>
 #include <iostream>
-#include <cmath>
-#include <conio.h>
+#include <graphics.h>
+#include <math.h>
 using namespace std;
 
-void drawLine(int x1, int y1, int x2, int y2, int COLOR){
-    float dx = x2 - x1;
-    float dy = y2 - y1;
+// function to draw line with DDA
+void drawLineWithDDA(int x1, int y1, int x2, int y2){
 
-    int steps = fabs(dx) >= fabs(dy) ? fabs(dx) : fabs(dy);
-    
-    float xIncrement = dx / steps;
-    float yIncrement = dy / steps;
+    // calculating the difference
+    int dx = x2 - x1;
+    int dy = y2 - y1;
 
-    float x = x1; 
-    float y = y1;
+    // calculating the step
+    int steps = abs(dx) > abs(dy) ? abs(dx) : abs(dy);
 
-    for(int i = 0 ; i <= steps; i++){
-        putpixel(round(x), round(y), COLOR);
-        x += xIncrement;
-        y += yIncrement;
+    // calculating the increments
+    float xi = dx / float(steps);
+    float yi = dy /float(steps);
+
+    // initializing the starting points
+    float x = x1;
+    float y = y1; 
+
+    // iterating through steps and incrementing x, y
+    for ( int i = 0 ; i <= steps; i++){
+        putpixel(round(x), round(y), WHITE);
+        x += xi;
+        y += yi;
     }
 }
 
 int main () {
     int gd = DETECT, gm;
-    initgraph(&gd, &gm, "");
+    initgraph(&gd, &gm, "C:\\Turboc3\\BGI");
 
-    for(int i = 40; i <= 400; i += 40){
-        if(i == 40 || i == 160 || i == 280 || i == 400){
-            drawLine(40, i, 400, i, WHITE);
-        }
-        else 
-        {
-            drawLine(40, i, 400, i, RED);
-        }
-        
-    }
-    for(int i = 40; i <= 400; i += 40){
-        if(i == 40 || i == 160 || i == 280 || i == 400){
-            drawLine(i, 40, i, 400, WHITE);
-        }
-        else {
-            drawLine(i, 40, i, 400, RED);
-        }
-    }
+    outtextxy(10, 10, "Sabin Shrestha");
 
-    drawLine(40, 40, 400, 400, WHITE);
-    drawLine(40, 400, 400, 40, WHITE);
-    drawLine(40, 160, 280, 400, WHITE);
-    drawLine(40, 280, 160, 400, WHITE);
-    drawLine(160, 400, 400, 160, WHITE); 
-    drawLine(280, 400, 400, 280, WHITE);
+    int x1, y1, x2, y2;
 
-    // Draw text "Sabin Shrestha"
-    setcolor(WHITE);
-    outtextxy(200, 420, "Sabin Shrestha");
+    cout << "Enter the first endpoints x1, y1: ";
+    cin >> x1 >> y1;
+    cout << "Enter the second endpoitns x2, y2: ";
+    cin >> x2 >> y2;
 
-    delay(50);
+    drawLineWithDDA(x1, y1, x2, y2);
+
     getch();
     closegraph();
+
     return 0;
 }
