@@ -1,28 +1,17 @@
-#include <stdio.h>
+#include <iostream>
 #include <graphics.h>
-#include <math.h>
+using namespace std;
 
-int main()
-{
-    int gd = DETECT, gm;
-    int xc, yc, r, p, x, y;
+void drawCircle(int xc, int yc, int r){
+    //initial points.
+   int x = 0; 
+   int y = r;
 
-    initgraph(&gd, &gm, NULL);
+    // initial decision parameter.
+    int d;
+    d = 1- r;
 
-
-    printf("Enter the center of circle (xc yc): ");
-    scanf("%d %d", &xc, &yc);
-    printf("Enter the radius of circle: ");
-    scanf("%d", &r);
-
-    p = 1 - r;
-    x = 0;
-    y = r;
-
-
-    while (x <= y)
-    {
-
+    while(x < y){
         putpixel(x + xc, y + yc, WHITE);
         putpixel(x + xc, -y + yc, WHITE);
         putpixel(-x + xc, -y + yc, WHITE);
@@ -31,26 +20,33 @@ int main()
         putpixel(y + xc, -x + yc, WHITE);
         putpixel(-y + xc, -x + yc, WHITE);
         putpixel(-y + xc, x + yc, WHITE);
-
-        if (p < 0)
-        {
-            x = x + 1;
-            p = p + 2 * x + 3;
-        }
-        else
-        {
-            x = x + 1;
-            y = y - 1;
-            p = p + 2 * (x - y) + 5;
-        }
+    if(d < 0){
+        x += 1;
+        d += 2 * x + 3;
     }
+    else {
+        x += 1;
+        y -= 1;
+        d += 2 * x - 2 * y + 5;
+    }}
+}
 
-    setcolor(WHITE);
-    outtextxy(10, 10, "Sabin Shrestha");
+
+int main (){
+    int gd = DETECT, gm;
+    initgraph(&gd, &gm, "C:\\Turboc3\\BGI"); 
+    int xc, yc, r;
+
+    cout << "Enter centers of circle (xc, yc): ";
+    cin >> xc >> yc;
+    cout << "Enter the radius of the circle r: ";
+    cin >> r;
+
+    drawCircle(xc, yc, r);
+
     getch();
-    
-
     closegraph();
-
     return 0;
 }
+
+
